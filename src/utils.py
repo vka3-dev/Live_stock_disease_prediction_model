@@ -7,7 +7,6 @@ import numpy as np
 import pandas as pd
 
 
-# ── Logging ───────────────────────────────────────────────────────────────────
 
 def get_logger(name: str = "livestock_anom") -> logging.Logger:
     logging.basicConfig(
@@ -18,7 +17,6 @@ def get_logger(name: str = "livestock_anom") -> logging.Logger:
     return logging.getLogger(name)
 
 
-# ── Timing decorator ──────────────────────────────────────────────────────────
 
 def timed(fn):
     @wraps(fn)
@@ -30,7 +28,6 @@ def timed(fn):
     return wrapper
 
 
-# ── Data helpers ──────────────────────────────────────────────────────────────
 
 def load_or_generate(csv_path: Path) -> pd.DataFrame:
     """Load CSV if it exists, otherwise regenerate dataset."""
