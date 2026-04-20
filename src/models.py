@@ -10,17 +10,13 @@ MODELS_DIR.mkdir(parents=True, exist_ok=True)
 def _risk_category(scores: np.ndarray,
                    low_thresh: float = 0.33,
                    high_thresh: float = 0.66) -> np.ndarray:
-    """
-    Map continuous anomaly scores in [0, 1] → 'low' / 'medium' / 'high'.
-    Thresholds chosen so roughly the top 5% are 'high', next 15% 'medium'.
-    """
+  
     cats = np.where(scores >= high_thresh, "high",
            np.where(scores >= low_thresh, "medium", "low"))
     return cats
 
 
 def _minmax_normalize(arr: np.ndarray) -> np.ndarray:
-    """Normalize array to [0, 1]."""
     mn, mx = arr.min(), arr.max()
     if mx - mn < 1e-9:
         return np.zeros_like(arr, dtype=np.float32)
@@ -30,19 +26,7 @@ def _minmax_normalize(arr: np.ndarray) -> np.ndarray:
 # ── A. Isolation Forest ───────────────────────────────────────────────────────
 
 class IsolationForestModel:
-    """
-    Isolation Forest anomaly detector.
-
-    Why contamination=0.05?
-    Typical disease prevalence in a managed herd is 3–7%.
-    Setting contamination=0.05 tells IF to flag roughly 5% of records
-    as outliers, matching our synthetic injection rate and real-world
-    epidemiological expectations.
-
-    Why n_estimators=200?
-    Default 100 is sufficient for many datasets but larger ensembles
-    reduce variance in score estimates, important for borderline cases.
-    """
+    
 
     def __init__(self, contamination: float = 0.05, n_estimators: int = 200):
         from sklearn.ensemble import IsolationForest
@@ -85,21 +69,8 @@ class IsolationForestModel:
         return obj
 
 
-# ── B. DBSCAN ─────────────────────────────────────────────────────────────────
-
 class DBSCANModel:
-    """
-    DBSCAN-based anomaly detector.
-
-    Why eps=0.5, min_samples=10?
-    After StandardScaler preprocessing, features are roughly unit-variance.
-    eps=0.5 catches tight clusters; isolated points in lower-density regions
-    are flagged as noise (label = -1), which we treat as anomalies.
-    min_samples=10 ensures noise is genuinely sparse, not just small clusters.
-
-    Limitation: DBSCAN has no explicit score — we use distance to nearest
-    core point as a proxy anomaly score.
-    """
+  
 
     def __init__(self, eps: float = 0.5, min_samples: int = 10):
         from sklearn.cluster import DBSCAN
@@ -141,8 +112,6 @@ class DBSCANModel:
         return obj
 
 
-# ── C. Autoencoder ────────────────────────────────────────────────────────────
-
 class AutoencoderModel:
     """Lightweight sklearn autoencoder-like model using MLPRegressor."""
     def __init__(self, input_dim=None, epochs=50, batch_size=256):
@@ -165,7 +134,6 @@ class AutoencoderModel:
         obj=cls(); obj.model=joblib.load(path); obj._fitted=True; return obj
 
 
-# ── D. KMeans Anomaly ─────────────────────────────────────────────────────────
 
 class KMeansAnomalyModel:
     """
