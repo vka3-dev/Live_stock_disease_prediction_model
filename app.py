@@ -1,16 +1,3 @@
-"""
-app.py
-Streamlit dashboard for Smart Livestock Health Anomaly Detection.
-
-Run with:  streamlit run app.py
-
-Design principles:
-  - No local file dependencies at startup — models are loaded lazily
-    and dataset is generated on first run if absent
-  - All heavy operations cached with st.cache_data / st.cache_resource
-  - Works on Streamlit Cloud (no hardcoded absolute paths)
-"""
-
 import os
 import io
 import sys

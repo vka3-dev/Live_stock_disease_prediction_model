@@ -1,17 +1,3 @@
-"""
-evaluator.py
-Model evaluation for unsupervised anomaly detection.
-
-Since ground truth labels are unavailable, we compare models using:
-  - Anomaly rate per model
-  - Score distribution histograms
-  - Silhouette score (KMeans / DBSCAN)
-  - Autoencoder reconstruction loss curve
-  - Side-by-side anomaly count bar chart
-
-All charts are saved to data/charts/.
-"""
-
 import numpy as np
 import pandas as pd
 import matplotlib

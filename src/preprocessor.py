@@ -1,16 +1,3 @@
-"""
-preprocessor.py
-Full preprocessing pipeline:
-  - Missing value imputation
-  - Categorical encoding
-  - Time-based feature extraction
-  - Feature engineering (rolling stats, deviation from mean, severity flags)
-  - Scaling (StandardScaler)
-
-Returns a preprocessed numpy array + feature name list suitable for
-unsupervised model training.
-"""
-
 import os
 import numpy as np
 import pandas as pd

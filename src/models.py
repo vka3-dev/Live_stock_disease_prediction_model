@@ -1,15 +1,3 @@
-"""
-models.py
-Four unsupervised anomaly detection models, each as a class with:
-  fit(X), predict(X) → (anomaly_score, risk_category), save(), load()
-
-Models:
-  A. IsolationForestModel  — sklearn, contamination tuned to 0.05
-  B. DBSCANModel           — sklearn, noise points = anomalies
-  C. AutoencoderModel      — TensorFlow/Keras, reconstruction error
-  D. KMeansAnomalyModel    — sklearn, distance-to-centroid as score
-"""
-
 import os
 import numpy as np
 import joblib

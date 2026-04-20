@@ -1,11 +1,3 @@
-"""
-data_generator.py
-Generates a realistic synthetic livestock health dataset (20,000 rows).
-Anomalous patterns are embedded but NOT labeled — the unsupervised models
-must discover them. Pattern types: disease_outbreak, feed_contamination,
-dehydration, stress, environmental_danger.
-"""
-
 import os
 import numpy as np
 import pandas as pd

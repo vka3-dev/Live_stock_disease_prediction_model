@@ -1,12 +1,3 @@
-"""
-explainability.py
-SHAP-based feature importance for Isolation Forest anomaly predictions.
-
-Outputs:
-  - Per-record top contributing features
-  - SHAP summary bar plot saved to data/charts/shap_summary.png
-"""
-
 import os
 import numpy as np
 import pandas as pd
