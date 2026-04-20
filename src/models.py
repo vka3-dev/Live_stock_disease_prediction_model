@@ -23,8 +23,6 @@ def _minmax_normalize(arr: np.ndarray) -> np.ndarray:
     return ((arr - mn) / (mx - mn)).astype(np.float32)
 
 
-# ── A. Isolation Forest ───────────────────────────────────────────────────────
-
 class IsolationForestModel:
     
 
@@ -136,16 +134,6 @@ class AutoencoderModel:
 
 
 class KMeansAnomalyModel:
-    """
-    KMeans-based anomaly detector using distance-to-centroid as anomaly score.
-
-    Why k=8?
-    We have 4 animal types × ~2 health states (normal/stressed) ≈ 8 clusters.
-    Points far from any centroid are anomalous. This is a simpler signal than
-    Isolation Forest but provides complementary cluster structure.
-
-    Silhouette score is computed post-fit for evaluation.
-    """
 
     def __init__(self, n_clusters: int = 8):
         from sklearn.cluster import KMeans
