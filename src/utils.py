@@ -34,8 +34,6 @@ def load_or_generate(csv_path: Path) -> pd.DataFrame:
     if csv_path.exists():
         print(f"[utils] Loading existing dataset ← {csv_path}")
         return pd.read_csv(csv_path)
-    from src.data_generator import generate_dataset
-    return generate_dataset()
 
 
 def validate_dataframe(df: pd.DataFrame, required_cols: list) -> None:
