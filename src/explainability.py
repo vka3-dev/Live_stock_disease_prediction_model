@@ -31,15 +31,9 @@ class AnomalyExplainer:
         self._explainer = None
 
     def _get_explainer(self, X_background: np.ndarray):
-        """
-        Build SHAP TreeExplainer lazily (expensive first call).
-        Uses a shrunken background sample for speed.
-        """
-        import shap
+        
         if self._explainer is None:
             n_bg = min(500, len(X_background))
-            bg = shap.sample(X_background, n_bg, random_state=42)
-            self._explainer = shap.TreeExplainer(self.if_model, data=bg)
         return self._explainer
 
     def explain_batch(self,
@@ -47,15 +41,7 @@ class AnomalyExplainer:
                       anomaly_scores: np.ndarray,
                       top_k: int = 5,
                       max_records: int = 200) -> pd.DataFrame:
-        """
-        Compute SHAP values for the most anomalous records.
-
-        Returns a DataFrame with columns:
-          record_idx, top_feature_1..top_k, shap_value_1..top_k
-        """
-        import shap
-
-        # Only explain truly anomalous records for efficiency
+      
         anom_mask = anomaly_scores > np.percentile(anomaly_scores, 90)
         X_anom = X[anom_mask][:max_records]
         anom_indices = np.where(anom_mask)[0][:max_records]
@@ -80,10 +66,7 @@ class AnomalyExplainer:
                      X: np.ndarray,
                      max_display: int = 15,
                      save_path: Path = CHARTS_DIR / "shap_summary.png"):
-        """
-        Generate SHAP summary (mean |SHAP|) bar plot and save to disk.
-        """
-        import shap
+    
         print("[Explainer] Computing SHAP values for summary plot …")
         n = min(1000, len(X))
         idx = np.random.choice(len(X), n, replace=False)
