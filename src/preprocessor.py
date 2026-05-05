@@ -187,11 +187,3 @@ if __name__ == "__main__":
     from pathlib import Path
     import sys
     sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-    # # from src.data_generator import generate_dataset, OUTPUT_FILE
-
-    # # df = pd.read_csv(OUTPUT_FILE) if OUTPUT_FILE.exists() else generate_dataset()
-    # prep = LivestockPreprocessor()
-    # X = prep.fit_transform(df)
-    # prep.save()
-    # print(f"[preprocessor] Feature matrix shape: {X.shape}")
-    # print(f"[preprocessor] Features: {prep.feature_names_[:10]} … ({len(prep.feature_names_)} total)")
